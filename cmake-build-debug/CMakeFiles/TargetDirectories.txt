@@ -1,0 +1,3 @@
+F:/__C++/Skillbox/29 Incapsulation/29.4.2 Shape Interface/cmake-build-debug/CMakeFiles/29_4_2_Shape_Interface.dir
+F:/__C++/Skillbox/29 Incapsulation/29.4.2 Shape Interface/cmake-build-debug/CMakeFiles/edit_cache.dir
+F:/__C++/Skillbox/29 Incapsulation/29.4.2 Shape Interface/cmake-build-debug/CMakeFiles/rebuild_cache.dir
