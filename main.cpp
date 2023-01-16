@@ -5,11 +5,13 @@
 struct Dimensions {
 	double width = 0;
 	double height = 0;
+
 };
 
 class Shape {
 public:
-	Shape() {}
+	Shape() = default;
+	~Shape() = default;
 	virtual double square() = 0;
 
 	virtual Dimensions dimensions() = 0;
@@ -29,25 +31,25 @@ class Circle : virtual public Shape {
 private:
 	double radius = 0;
 public:
-	Circle(double in_radius) {
+	explicit Circle(double in_radius) {
 		if (in_radius >= 0)
 			this->radius = in_radius;
 		else
 			std::cout << "Radius can't be less zero!" << std::endl;
 	}
 
-	double square() {
+	double square() override {
 		return 3.14 * radius * radius;
 	}
 
-	Dimensions dimensions() {
+	Dimensions dimensions() override {
 		Dimensions boundingBoxDimensions;
 		boundingBoxDimensions.width = radius * 2;
 		boundingBoxDimensions.height = radius * 2;
 		return boundingBoxDimensions;
 	}
 
-	std::string type() {
+	std::string type() override {
 		return "Circle";
 	}
 };
@@ -66,11 +68,11 @@ public:
 			std::cout << "Sides can't be less zero!" << std::endl;
 	}
 
-	double square() {
+	double square() override {
 		return this->width * this->height;
 	}
 
-	Dimensions dimensions() {
+	Dimensions dimensions() override {
 		Dimensions boundingBoxDimensions;
 		double hypothesis = std::sqrt((this->width * this->width) + (this->height * this->height));
 		boundingBoxDimensions.width = hypothesis;
@@ -78,7 +80,7 @@ public:
 		return boundingBoxDimensions;
 	}
 
-	std::string type() {
+	std::string type() override {
 		return "Rectangle";
 	}
 };
@@ -99,19 +101,19 @@ public:
 			std::cout << "Sides can't be less zero!" << std::endl;
 	}
 
-	double square() {
+	double square() override {
 		double p = (this->side_A + this->side_B + this->side_C) / 2;
 		return std::sqrt(p * (p - side_A) * (p - side_B) * (p - side_C));
 	}
 
-	Dimensions dimensions() {
+	Dimensions dimensions() override {
 		Dimensions boundingBoxDimensions;
 		boundingBoxDimensions.width = this->side_A * this->side_B * this->side_C / (4 * this->square()) * 2;
 		boundingBoxDimensions.height = this->side_A * this->side_B * this->side_C / (4 * this->square()) * 2;
 		return boundingBoxDimensions;
 	}
 
-	std::string type() {
+	std::string type() override {
 		return "Triangle";
 	}
 };
@@ -125,5 +127,9 @@ int main() {
 	for (int i = 0; i < 3; ++i) {
 		shapes[i]->printParams(shapes[i]);
 	}
+
+	for (int i = 0; i < 3; ++i)
+		delete shapes[i];
+
 	return 0;
 }
